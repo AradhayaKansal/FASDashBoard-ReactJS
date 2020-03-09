@@ -1,0 +1,4 @@
+.top-buffer { margin-top:100px; }
+.highcharts-button, .highcharts-legend, .highcharts-container > svg > text {display: none;} /* to hide watermark*/
+
+
