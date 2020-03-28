@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
-import { getFundsInfo } from "../store/GetFundsInfo";
-import { CONST_FUNDS_COLORS } from "../shared/Constants";
+import { getFundsTypesInfo } from "../store/GetFundTypes";
 
-class FASFunds extends Component {
+class FundTypes extends Component {
+  componentDidMount() {
+  }
+
   render() {
     const options = {
-      colors: CONST_FUNDS_COLORS,
+      colors: ['green',/*Active */'#ff3b3b',/*Closed */'#ff8c3b' /*Non Live*/, '#804682'],
       chart: {
         plotBackgroundColor: null,
         plotBorderWidth: null,
@@ -38,7 +40,7 @@ class FASFunds extends Component {
         {
           name: 'Count',
           colorByPoint: true,
-          data: getFundsInfo(),
+          data: getFundsTypesInfo(),
           showInLegend: true
         }
       ]
@@ -51,4 +53,4 @@ class FASFunds extends Component {
   }
 }
 
-export default FASFunds;
+export default FundTypes;

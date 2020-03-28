@@ -1,14 +1,14 @@
 export function getFundsInfo() {
-      return [{
-        name: 'Non-Live',
-        y: 7.5,
-        sliced: true,
-        selected: true
-      }, {
-        name: 'Closed',
-        y: 7.5
-      }, {
-        name: 'Active',
-        y: 85
-      }]
+  return [{
+    name: 'Active',
+    y: 971
+  }, {
+    name: 'Closed',
+    y: 128 
+  }, {
+    name: 'Non-Live',
+    y: 292,
+    sliced: true,
+    selected: true
+  },]
 }

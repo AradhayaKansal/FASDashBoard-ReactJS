@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
-import { getFundsInfo } from "../store/GetFundsInfo";
-import { CONST_FUNDS_COLORS } from "../shared/Constants";
+import { getFundsAccountingPeriodWise } from "../store/GetFundsAccountingPeriodWise";
+import { CONST_FUNDACCOUNTINGPERIODS_COLORS } from "../shared/Constants";
 
-class FASFunds extends Component {
+class FundsAccountingPeriodWise extends Component {
   render() {
     const options = {
-      colors: CONST_FUNDS_COLORS,
+      colors: CONST_FUNDACCOUNTINGPERIODS_COLORS,
       chart: {
         plotBackgroundColor: null,
         plotBorderWidth: null,
@@ -38,7 +38,7 @@ class FASFunds extends Component {
         {
           name: 'Count',
           colorByPoint: true,
-          data: getFundsInfo(),
+          data: getFundsAccountingPeriodWise(),
           showInLegend: true
         }
       ]
@@ -51,4 +51,4 @@ class FASFunds extends Component {
   }
 }
 
-export default FASFunds;
+export default FundsAccountingPeriodWise;
