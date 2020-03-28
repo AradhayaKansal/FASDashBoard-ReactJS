@@ -1,4 +1,21 @@
 .top-buffer { margin-top:100px; }
 .highcharts-button, .highcharts-legend, .highcharts-container > svg > text {display: none;} /* to hide watermark*/
 
-
+.ui.grid {
+    margin-top: -1rem;
+    margin-bottom: -1rem;
+    margin-left: 0rem;
+    margin-right: -1rem;
+}
+.ui.attached:not(.message)+.ui.attached.segment:not(.top)
+{
+    background-color: #e8e8e8!important;
+}
+.ui.grid>.column:not(.row)
+{
+    padding-left: 0rem !important; 
+}
+.highcharts-legend
+{
+    display:block!important;
+}

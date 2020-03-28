@@ -1,43 +1,40 @@
 import React, { Component } from 'react';
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
+
 import { getClientsInfo } from "../store/GetClientsInfo";
-import ClientsDetils from "./ClientsDetils";
+import { CONST_CLIENTS_COLORS } from "../shared/Constants";
 
 class FASClients extends Component {
-    componentDidMount() {
-    }
-
     render() {
-
-        function ShowClientsDetails(x) {
-            alert(x),
-            <ClientsDetils><h1></h1></ClientsDetils>;
-        }
-
         const options = {
+            colors: CONST_CLIENTS_COLORS,
             chart: {
-                type: "pie"
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
             },
             title: {
                 text: "Clients"
             },
             plotOptions: {
                 pie: {
-                    point: {
-                        events: {
-                            click: function () {
-                                ShowClientsDetails(this.name)
-                            }
-                        }
-                    }
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true,
                 }
             },
             series: [
                 {
-                    data: getClientsInfo()
-                }
-            ]
+                    name: 'Count',
+                    colorByPoint: true,
+                    data: getClientsInfo(),
+                    showInLegend: true
+                }]
         };
         return (
             <div>
@@ -45,7 +42,6 @@ class FASClients extends Component {
             </div >
         );
     }
-
 }
 
 export default FASClients;

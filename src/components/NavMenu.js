@@ -1,39 +1,33 @@
-import React from 'react';
-import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react'
+import { Menu } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
+
 import '../styles/NavMenu.css';
 
-export default class NavMenu extends React.Component {
-  constructor (props) {
-    super(props);
+export default class MenuExampleStackable extends Component {
+  state = {}
+  handleItemClick = (e, { name }) => {
+    this.setState({ activeItem: name });
+  };
 
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      isOpen: false
-    };
-  }
-  toggle () {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  }
-  render () {
+  render() {
+    const { activeItem } = this.state
+
     return (
-      <header>
-        <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" light >
-          <Container>
-            <NavbarBrand tag={Link} to="/">FAS Dashboard</NavbarBrand>
-            <NavbarToggler onClick={this.toggle} className="mr-2" />
-            <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={this.state.isOpen} navbar>
-              <ul className="navbar-nav flex-grow">
-              <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/FASDashboard">Info</NavLink>
-                </NavItem>
-              </ul>
-            </Collapse>
-          </Container>
-        </Navbar>
-      </header>
-    );
+      <Menu size='mini' color='007acc' inverted>
+        <Menu.Item >
+          <img alt='' src='https://react.semantic-ui.com/logo.png' />
+        </Menu.Item>
+        <Menu.Item
+          name='dashboard'
+          header
+          active={activeItem === 'dashboard'}
+          onClick={this.handleItemClick}
+          as={Link}
+          to="/FASDashboard">
+          FAS Statistics
+        </Menu.Item>
+      </Menu>
+    )
   }
 }
