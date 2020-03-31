@@ -1,7 +1,7 @@
 export function getClients() {
     return [
-        { key: 'af', value: 'af', flag: 'af', text: 'Crown' },
-        { key: 'ax', value: 'ax', flag: 'ax', text: 'Gobi Group' },
-        { key: 'ax', value: 'ax', flag: 'ax', text: 'PPB Group' },
+        { key: '101', value: '101', flag: 'af', text: 'Crown' },
+        { key: '102', value: '102', flag: 'ax', text: 'Gobi Group' },
+        { key: '103', value: '103', flag: 'ax', text: 'PPB Group' },
     ]
   }
