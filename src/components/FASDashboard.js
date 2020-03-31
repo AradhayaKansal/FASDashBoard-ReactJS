@@ -1,6 +1,6 @@
 // Libaries
 import React, { Component } from 'react';
-import { Grid, Tab, Card, Segment, Label, Header } from 'semantic-ui-react'
+import { Grid, Tab, Card, Segment, Label } from 'semantic-ui-react'
 
 // Css
 import '../styles/FASDashboard.css';
@@ -9,7 +9,6 @@ import '../styles/FASDashboard.css';
 import Filters from './Filters';
 import FASFunds from "./FASFunds";
 import FundTypes from "./FundTypes";
-import FASClients from "./FASClients";
 import FundsInformation from './FundsInformation';
 import FundLockingDelays from './FundLockingDelays';
 import FundsAccountingPeriodWise from './FundsAccountingPeriodWise';
@@ -32,38 +31,37 @@ class FASDashboard extends Component {
                 menuItem: 'Population Stats',
                 render: () =>
                   <Tab.Pane color='#e8e8e8'>
-                    <Card.Group itemsPerRow={4}>
-                      <Card >
-                        <Segment>
-                          <span>No of Clients</span>
-                          <FASClients></FASClients>
-                        </Segment>
-                      </Card>
-                      <Card >
-                        <Segment>
-                          <div>
-                            <span>No of Funds</span>
-                          </div>
-                          <FASFunds></FASFunds>
-                        </Segment>
-                      </Card>
-                      <Card>
-                        <Segment>
-                          <div>
-                            <span>No of different types of Funds</span>
-                          </div>
-                          <FundTypes></FundTypes>
-                        </Segment>
-                      </Card>
-                      <Card >
-                        <Segment>
-                          <div>
-                            <span>No of funds based on different accounting periods</span>
-                          </div>
-                          <FundsAccountingPeriodWise></FundsAccountingPeriodWise>
-                        </Segment>
-                      </Card>
-                    </Card.Group>
+                    <Grid>
+                      <Grid.Row >
+                        <Grid.Column className='eight wide'>
+                          <Card.Group itemsPerRow={2}>
+                            <Card >
+                              <Segment>
+                                <Label as='a' color='blue' ribbon='left'>No of funds</Label>
+                                <FASFunds></FASFunds>
+                              </Segment>
+                            </Card>
+                            <Card >
+                              <Segment>
+                                <Label as='a' color='blue' ribbon='left'>No of funds - Periods Wise</Label>
+                                <FundsAccountingPeriodWise></FundsAccountingPeriodWise>
+                              </Segment>
+                            </Card>
+                          </Card.Group>
+                        </Grid.Column>
+                        <Grid.Column className='eight wide'>
+                          <Card.Group itemsPerRow={1}>
+                            <Card >
+                              <Segment>
+                                <Label as='a' color='blue' ribbon='left'>No of Fund Types</Label>
+                                <FundTypes></FundTypes>
+                              </Segment>
+                            </Card>
+                          </Card.Group>
+                        </Grid.Column>
+                      </Grid.Row>
+                    </Grid>
+
                     <Segment.Group raised>
                       <Segment>
                         <Label as='a' color='blue' ribbon='left'>Detail Information</Label>

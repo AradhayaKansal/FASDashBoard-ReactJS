@@ -1,7 +1,8 @@
 export function getFunds() {
     return [
-        { key: 'af', value: 'af', flag: 'af', text: 'Crown Latigo' },
-        { key: 'ax', value: 'ax', flag: 'ax', text: 'Crown Helios' },
-        { key: 'ax', value: 'ax', flag: 'ax', text: 'Crown Linden' },
+        { key: '101', value: '1', flag: 'af', text: 'Crown Latigo', },
+        { key: '101', value: '2', flag: 'ax', text: 'Crown Helios' },
+        { key: '101', value: '3', flag: 'ax', text: 'Crown Linden' },
+        { key: '102', value: '4', flag: 'ax', text: 'Gobi Fund A' },
     ]
   }

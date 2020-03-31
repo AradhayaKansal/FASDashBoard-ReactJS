@@ -6,16 +6,45 @@ import { getFunds } from "../store/Funds";
 import { CONST_RANGE } from "../shared/Constants.js";
 
 class Filters extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            clientData: getClients(),
+            fundsData: getFunds(),
+            filteredFundsData: null,
+        };
+    }
+
+    componentWillMount() {
+        if (this.state.filteredFundsData === null)
+            this.setState({ filteredFundsData: this.state.fundsData });
+    }
+
+    handleDropdownChange = (e, data) => {
+        e.persist();
+        this.setState({ filteredFundsData: null });
+        this.setState({
+            filteredFundsData: this.state.fundsData.filter(function (fData, value) {
+                return fData.key === data.value;
+            })
+        });
+    };
+
     render() {
+
+        var filteredFunds = this.state.filteredFundsData;
+
         return (
             <Grid>
                 <Grid.Column className='six wide column'>
                     <Dropdown
                         placeholder='Select Client'
+                        onSearchChange={this.handleDropdownChange}
+                        onChange={this.handleDropdownChange}
                         fluid
                         search
                         selection
-                        options={getClients()}
+                        options={this.state.clientData}
                     />
                 </Grid.Column>
                 <Grid.Column className='six wide column'>
@@ -24,7 +53,7 @@ class Filters extends Component {
                         fluid
                         search
                         selection
-                        options={getFunds()}
+                        options={filteredFunds}
                     />
                 </Grid.Column>
                 <Grid.Column className='four wide column'>

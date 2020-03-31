@@ -1,23 +1,41 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { Table } from 'semantic-ui-react'
+import { Table, Pagination } from 'semantic-ui-react'
 
 import { getFundsDetailInformation } from "../store/GetFundsDetailInformation";
+const itemsPerPage = 10;
 
 class FundsInformation extends Component {
-    state = {
-        column: null,
-        data: getFundsDetailInformation(),
-        direction: null,
+    constructor(props) {
+        super(props);
+        this.state = {
+            activePage: 1,
+            boundaryRange: 10,
+            siblingRange: 5,
+            totalPages: 0,
+            column: null,
+            data: getFundsDetailInformation(),
+            filteredData: getFundsDetailInformation().slice(0, itemsPerPage),
+            direction: null
+        };
     }
 
+    onChange = (e, pageInfo) => {
+        if (!isNaN(pageInfo.activePage)) {
+            this.setState({ activePage: Math.round(pageInfo.activePage) });
+            const begin = (Math.round(pageInfo.activePage) - 1) * itemsPerPage;
+            const end = begin + itemsPerPage;
+            this.setState({ filteredData: this.state.data.slice(begin, end) });
+        }
+    };
+
     handleSort = (clickedColumn) => () => {
-        const { column, data, direction } = this.state
+        const { column, filteredData, direction } = this.state;
 
         if (column !== clickedColumn) {
             this.setState({
                 column: clickedColumn,
-                data: _.sortBy(data, [clickedColumn]),
+                filteredData: _.sortBy(filteredData, [clickedColumn]),
                 direction: 'ascending',
             })
 
@@ -25,18 +43,31 @@ class FundsInformation extends Component {
         }
 
         this.setState({
-            data: data.reverse(),
+            filteredData: filteredData.reverse(),
             direction: direction === 'ascending' ? 'descending' : 'ascending',
         })
     }
 
     render() {
-        const { column, data, direction } = this.state
+        const { column, direction } = this.state
+        var rows = _.map(this.state.filteredData, ({ id, noOfAccounts, noOfInvestors, main2FetchUpto, mainFetchUpto, rtaLastFetchDateTime, name }) => (
+            <Table.Row key={name}>
+                <Table.Cell>{id}</Table.Cell>
+                <Table.Cell>{name}</Table.Cell>
+                <Table.Cell>{noOfAccounts}</Table.Cell>
+                <Table.Cell>{noOfInvestors}</Table.Cell>
+                <Table.Cell>{main2FetchUpto}</Table.Cell>
+                <Table.Cell>{mainFetchUpto}</Table.Cell>
+                <Table.Cell>{rtaLastFetchDateTime}</Table.Cell>
+            </Table.Row>
+        ));
 
         return (
-            <Table sortable columns={5} celled selectable>
+            <Table sortable columns={5} compact collapsing celled selectable>
                 <Table.Header>
                     <Table.Row>
+                        <Table.HeaderCell sorted={column === 'id' ? direction : null}
+                            onClick={this.handleSort('id')}>FundID</Table.HeaderCell>
                         <Table.HeaderCell sorted={column === 'name' ? direction : null}
                             onClick={this.handleSort('name')}>Fund</Table.HeaderCell>
                         <Table.HeaderCell sorted={column === 'noOfAccounts' ? direction : null}
@@ -52,19 +83,17 @@ class FundsInformation extends Component {
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {_.map(data, ({ noOfAccounts, noOfInvestors, main2FetchUpto, mainFetchUpto, rtaLastFetchDateTime, name }) => (
-                        <Table.Row key={name}>
-                            <Table.Cell>{name}</Table.Cell>
-                            <Table.Cell>{noOfAccounts}</Table.Cell>
-                            <Table.Cell>{noOfInvestors}</Table.Cell>
-                            <Table.Cell>{main2FetchUpto}</Table.Cell>
-                            <Table.Cell>{mainFetchUpto}</Table.Cell>
-                            <Table.Cell>{rtaLastFetchDateTime}</Table.Cell>
-                        </Table.Row>
-                    ))}
+                    {rows}
                 </Table.Body>
                 <Table.Footer>
                     <Table.Row>
+                        <Pagination
+                            activePage={this.state.currentPage}
+                            boundaryRange={this.state.boundaryRange}
+                            onPageChange={this.onChange}
+                            siblingRange={this.state.siblingRange}
+                            totalPages={this.state.data.length / itemsPerPage}
+                        />
                         <Table.HeaderCell />
                         <Table.HeaderCell />
                         <Table.HeaderCell />
